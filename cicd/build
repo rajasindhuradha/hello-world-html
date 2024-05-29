@@ -1,0 +1,30 @@
+pipeline {
+  agent any
+  options {
+    disableConcurrentBuilds()
+    disableResume()
+    buildDiscarder(logRotator(numToKeepStr: '10'))
+    timeout(time: 1, unit: 'HOURS')
+  }
+  parameters {
+    choice(name: 'ENVIRONMENT', choices: ['dev', 'qa', 'prod'], description: 'Choose Environment')
+  }
+  stages {
+    stage ('Docker Build') {
+      steps {
+        script {
+          docker.build("${DOCKER_REGISTRY}/${DOCKER_REPOSITORY}/${IMAGE_NAME}:${IMAGE_TAG}")
+        }
+      }
+    }
+    stage ('Docker Push') {
+      steps {
+        script {
+          docker.withRegistry("https://${DOCKER_REGISTRY}", "${DOCKER_CREDENTIAL_ID}") {
+            docker.image("${DOCKER_REGISTRY}/${DOCKER_REPOSITORY}/${IMAGE_NAME}:${IMAGE_TAG}").push() 
+          }           
+        }
+      }
+    }
+  }
+}
