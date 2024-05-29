@@ -57,7 +57,7 @@ pipeline {
     }
     stage ('Deploy to Qa') {
       when {
-        environment name: "ENVIRONMENT", value: "qa"
+        environment name: "ENVIRONMENT",  value: "qa"
       }
       steps {
         script {
