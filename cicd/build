@@ -9,9 +9,9 @@ pipeline {
   parameters {
     choice(name: 'ENVIRONMENT', choices: ['dev', 'qa', 'prod'], description: 'Choose Environment')
   }
-  environment {
+    environment {
     DOCKER_REGISTRY = "rajasindhu.jfrog.io"
-    DOCKER_REPOSITORY - "docker-trial"
+    DOCKER_REPOSITORY = "docker-trial"
     IMAGE_NAME = "hello-world-html"
     IMAGE_TAG = "1.${BUILD_NUMBER}"
     DOCKER_CREDENTIAL_ID = "jfrog-credential"
