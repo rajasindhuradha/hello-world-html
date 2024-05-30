@@ -32,7 +32,7 @@ pipeline {
     }
     stage ('Trigger deployment') {
       steps {
-        build wait: false, job: 'deploy'
+        build wait: false, job: 'deploy',  parameters: [string(name: 'IMAGE_TAG', value: "${IMAGE_TAG}")]
       }
     }
   }
