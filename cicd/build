@@ -6,10 +6,7 @@ pipeline {
     buildDiscarder(logRotator(numToKeepStr: '10'))
     timeout(time: 1, unit: 'HOURS')
   }
-  parameters {
-    choice(name: 'ENVIRONMENT', choices: ['dev', 'qa', 'prod'], description: 'Choose Environment')
-  }
-    environment {
+  environment {
     DOCKER_REGISTRY = "rajasindhu.jfrog.io"
     DOCKER_REPOSITORY = "docker-trial"
     IMAGE_NAME = "hello-world-html"
