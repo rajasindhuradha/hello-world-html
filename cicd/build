@@ -30,5 +30,10 @@ pipeline {
         }
       }
     }
+    stage ('Trigger deployment') {
+      steps {
+        build wait: false, job: 'deploy'
+      }
+    }
   }
 }
